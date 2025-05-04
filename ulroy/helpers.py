@@ -4,7 +4,7 @@ import asyncio
 import time
 from datetime import datetime, timedelta
 import httpx
-from ulroy_client.exceptions import APIError
+from ulroy.exceptions import APIError
 
 class IndexInfo(BaseModel):
     """Information about an index"""

@@ -1,17 +1,15 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
-[project]
+[tool.poetry]
 name = "ulroy"
 version = "0.1.0"
 description = "Python client library for Ulroy API with both sync and async support"
+authors = ["Dipankar Sarkar <me@dipankar.name>"]
 readme = "README.md"
-requires-python = ">=3.8"
+packages = [{include = "ulroy"}]
 license = "MIT"
-authors = [
-    { name = "Dipankar Sarkar", email = "me@dipankar.name" }
-]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -22,15 +20,27 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
 ]
+keywords = ["ulroy", "api", "client"]
+repository = "https://github.com/ulroy-ai/ulroy-python"
+documentation = "https://ulroy-client.readthedocs.io"
 
-[project.urls]
-Homepage = "https://github.com/ulroy-ai/ulroy-python"
-Documentation = "https://ulroy-client.readthedocs.io"
-Repository = "https://github.com/ulroy-ai/ulroy-python.git"
-
-[project.dependencies]
+[tool.poetry.dependencies]
+python = "^3.8"
 httpx = "^0.26.0"
 pydantic = "^2.6.1"
 
-[tool.hatch.build.targets.wheel]
-packages = ["ulroy_client"] 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.1"
+pytest-cov = "^4.1.0"
+black = ">=23.7,<25.0"
+isort = "^5.12.0"
+mypy = "^1.5.1"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3 

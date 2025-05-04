@@ -1,7 +1,7 @@
 from typing import Optional, Dict, Any, Union
 import httpx
 from .base import BaseClient, APIError
-from .helpers import create_index_helpers, create_document_helpers, create_task_helpers
+from .helpers.async_helpers import create_index_helpers, create_document_helpers, create_task_helpers
 
 class AsyncUlroyClient(BaseClient):
     """Asynchronous client for the Ulroy API."""
@@ -20,12 +20,16 @@ class AsyncUlroyClient(BaseClient):
             base_url=self.base_url,
         )
         
-        # Initialize helper functions
-        self.index = create_index_helpers(self)
-        self.document = create_document_helpers(self)
-        self.task = create_task_helpers(self)
+        # Initialize helper functions as None - they will be set in __aenter__
+        self.index = None
+        self.document = None
+        self.task = None
 
     async def __aenter__(self):
+        # Initialize helper functions
+        self.index = await create_index_helpers(self)
+        self.document = await create_document_helpers(self)
+        self.task = await create_task_helpers(self)
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
